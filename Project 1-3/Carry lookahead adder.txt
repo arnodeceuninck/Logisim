@@ -1,0 +1,5 @@
+Carry propagate: Pi = Ai + Bi
+Carry generate: Gi = Ai*Bi
+
+Sumi = Pi+Ci
+Ci+1 = Gi+Pi*Ci
