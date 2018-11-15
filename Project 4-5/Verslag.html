@@ -1,0 +1,76 @@
+
+<!-- saved from url=(0094)http://msdl.cs.mcgill.ca/people/hv/teaching/ComputerSystemsArchitecture/materials/verslag.html -->
+<html><link type="text/css" id="dark-mode" rel="stylesheet" href="http://msdl.cs.mcgill.ca/people/hv/teaching/ComputerSystemsArchitecture/materials/verslag.html"><style type="text/css" id="dark-mode-custom-style"></style><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
+<title>Verslag</title>
+<!-- Het "u" element (underline) is geherdefinieerd voor overline -->
+<style type="text/css">u {text-decoration: overline;}</style>
+
+</head>
+
+<body>
+
+<h1>Verslag</h1>
+<p><b>Titel:</b> <i>Project 4-5</i></p>
+<p>Dit verslag werd opgesteld door:<br>
+</p><ul>
+<li><b>Naam:</b> <i>Arno Deceuninck</i><br>
+<b>Studentennummer:</b> <i>20181217</i><br>
+<b>Email adres:</b> <i>arno.deceuninck@student.uantwerpen.be</i>
+</li>
+<li><b>Naam:</b> <i>Philippe Voet</i><br>
+<b>Studentennummer:</b> <i>20183222</i><br>
+<b>Email adres:</b> <i>philippe.voet@student.uantwerpen.be</i>
+</li>
+</ul>
+<b>Aantal man-uren besteed:</b> <i>OVER 9000 uur</i><br>
+<b>Moeilijkheidsgraad:</b> <i>8</i> /10 (1 is heel makkelijk, 10 is heel moeilijk)<p></p>
+
+<h2>Inhoud van de oplossing</h2>
+<p>De oplossing bestaat uit de volgende bestanden (geef alle bestanden op):</p>
+<ul>
+<li><a href="Project 4.circ">Project 1.circ</a>: Memory</li>
+</ul>
+
+<h2>Verslag</h2>
+<p>Geef een gestructureerd verslag van de oplossing. Gebruik figuren (bijvoorbeeld 
+
+screenshots) waar je denkt dat ze een bijdrage leveren. Gebruik eventueel subtitels 
+
+om structuur te brengen. Zorg ervoor dat alle onderdelen van de opgave klaar en 
+
+duidelijk besproken worden. Verduidelijk hoe je tot de oplossing bent gekomen.</p>
+
+<h3>Project 1</h3>
+<h4>Exercise 1: 8-bit Registry</h4>
+We zijn begonnen met het maken van een D-Flip-Flop tijdens de les, 
+maar deze hebben we niet afgewerkt (en verwijderd) omdat we blijkbaar 
+de ingebouwde mochten gebruiken. <br>
+De opslag werkt helemaal voor de 8 bits. <br>
+Aangezien we nog geen klok hebben, hebben we een input die je zelf
+aan en uit moet zetten eraan toegevoegd. <br>
+
+<h4>Exercise 2: Counter</h4>
+De counter werkt met een CLA die telkens 1 opteld bij het getal in 
+het 8-bit register. Iedere klokslag wordt het getal in dit register
+aangepast, waardoor de CLA ook het volgende getal berekent. <br>
+De register-value wordt ook constant gecontroleerd door een  comparator
+(Arithmetic Library). Zodra het getal in het register niet meer kleiner
+is dan D, wordt de reset knop van het register ingedrukt. <br>
+
+<h4>Exercise 3: State Traffic Light</h4>
+Het eerste verkeersligt heeft 3 states. Iedere klokslag wordt doorgegeven
+aan een time counter, die bij elke klokslag, de tijd met 1 laat stijgen.
+Deze counter is verbonden met een multiplexor, die bepaalt na hoeveel tellen
+de counter terug op 0 moet staan, en dus moet overschakelen naar de 
+volgende state. Als de tijd gereset is gaat het signaal dus naar een andere
+counter die bijhoudt in welke van de 3 states we ons bevinden.
+Afhankelijk van deze state brand er dus een ander licht en is er 
+een andere tijd dat het verkeerslicht moet branden.
+Het tweede verkeerslicht is op dezelfde manier gemaakt, enkel heeft
+deze een 4 states, waaronder een lang rood en een kortrood. We konden
+geen andere manier vinden om het 2e licht op een ander tijdstip te 
+laten starten.
+
+<h4>Exercise 4: Register File</h4>
+Voor deze oefening hebben we de slides gevolgd van tijdens de theorielessen.
+WIP
