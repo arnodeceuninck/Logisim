@@ -35,6 +35,7 @@ def invert(number):
 special_cases = [127, 64, 15, 1, 0, -1, -15, -64, -127, -128]
 commands = set()
 instructions = ("zero", "not", "and", "or", "add", "sub", "lt", "gt", "eq", "neq", "inv", "sll", "srl", "sla", "sra", "noop")
+# instructions = ("sla", "None")
 
 # Problemen bij:
 # sla: -64, -1
