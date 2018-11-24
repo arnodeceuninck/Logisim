@@ -1,0 +1,11 @@
+python Test.py -a -i add.txt -c ALU_Group50.circ
+python Test.py -a -i eq.txt -c ALU_Group50.circ
+python Test.py -a -i gt.txt -c ALU_Group50.circ
+python Test.py -a -i inv.txt -c ALU_Group50.circ
+python Test.py -a -i lt.txt -c ALU_Group50.circ
+python Test.py -a -i neq.txt -c ALU_Group50.circ
+python Test.py -a -i not.txt -c ALU_Group50.circ
+python Test.py -a -i sla.txt -c ALU_Group50.circ
+python Test.py -a -i sra.txt -c ALU_Group50.circ
+python Test.py -a -i sub.txt -c ALU_Group50.circ
+python Test.py -a -i zero.txt -c ALU_Group50.circ
