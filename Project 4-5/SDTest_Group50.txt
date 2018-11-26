@@ -1,3 +1,4 @@
+# First test from the assignment
 LOADMEM
 zero r0 # 0
 lb r1 r0 5   # 1 loads a[0] into r1
@@ -12,3 +13,267 @@ r2: -1
 r3: 9
 pc: 4
 END
+#########################
+# Self written test 1: Addition
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+add r3 r1 r2
+DATAMEM
+64 # 5
+63 # 6
+CHECKMEM
+r0: 0
+r1: 64
+r2: 63
+r3: 127
+pc: 4
+END
+##########################
+# Self written test 2: Invert
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+inv r2 r1
+DATAMEM
+3 # 4
+1 # 5
+CHECKMEM
+r0: 0
+r1: 1
+r2: -1
+pc: 3
+END
+##########################
+# Self written test 3: Multiply
+LOADMEM
+zero r0 # 0
+lb r1 r0 4
+sla r2 r1
+DATAMEM
+-64 # 4
+CHECKMEM
+r0: 0
+r1: -64
+r2: -128
+pc: 3
+END
+##########################
+# Self written test 4: Divide
+LOADMEM
+zero r0 # 0
+lb r1 r0 4
+sra r2 r1
+DATAMEM
+-64 # 4
+CHECKMEM
+r0: 0
+r1: -64
+r2: -32
+pc: 3
+END
+##########################
+# Self written test 5: Copy
+LOADMEM
+zero r0 # 0
+lb r1 r0 4
+cp r2 r1
+DATAMEM
+-64 # 4
+CHECKMEM
+r0: 0
+r1: -64
+r2: -64
+pc: 3
+END
+##########################
+# Self written test 6: Subtract
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+sub r3 r1 r2
+DATAMEM
+64 # 5
+65 # 6
+CHECKMEM
+r0: 0
+r1: 64
+r2: 65
+r3: -1
+pc: 4 
+END
+##########################
+# Self written test 7: Less than
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+lt r3 r1 r2
+DATAMEM
+64 # 5
+65 # 6
+CHECKMEM
+r0: 0
+r1: 64
+r2: 65
+r3: 1
+pc: 4 
+END
+##########################
+# Self written test 8: Less than
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+lt r3 r1 r2
+DATAMEM
+1 # 5
+-1 # 6
+CHECKMEM
+r0: 0
+r1: 1
+r2: -1
+r3: 0
+pc: 4 
+END
+##########################
+# Self written test 9: Greater than
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+gt r3 r1 r2
+DATAMEM
+64 # 5
+65 # 6
+CHECKMEM
+r0: 0
+r1: 64
+r2: 65
+r3: 0
+pc: 4 
+END
+##########################
+# Self written test 10: Greater than
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+lt r3 r1 r2
+DATAMEM
+1 # 5
+1 # 6
+CHECKMEM
+r0: 0
+r1: 1
+r2: 1
+r3: 0
+pc: 4 
+END
+##########################
+# Self written test 11: Equals
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+lt r3 r1 r2
+DATAMEM
+127 # 5
+-128 # 6
+CHECKMEM
+r0: 0
+r1: 127
+r2: -128
+r3: 0
+pc: 4 
+END
+##########################
+# Self written test 12: Equals
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+eq r3 r1 r2
+DATAMEM
+-128 # 5
+-128 # 6
+CHECKMEM
+r0: 0
+r1: -128
+r2: -128
+r3: 1
+pc: 4 
+END
+##########################
+# Self written test 13: Not Equals
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+lt r3 r1 r2
+DATAMEM
+0 # 5
+0 # 6
+CHECKMEM
+r0: 0
+r1: 0
+r2: 0
+r3: 0
+pc: 4 
+END
+##########################
+# Self written test 14: Not Equals
+LOADMEM
+zero r0 # 0
+lb r1 r0 5
+lb r2 r0 6
+neq r3 r1 r2
+DATAMEM
+1 # 5
+0 # 6
+CHECKMEM
+r0: 0
+r1: 1
+r2: 0
+r3: 1
+pc: 4 
+END
+##########################
+# Self written test 14: Load Byte
+LOADMEM
+zero r0 # 0
+lb r1 r0 4
+lb r2 r1 0
+DATAMEM
+5 # 4
+101 # 5
+CHECKMEM
+r0: 0
+r1: 5
+r2: 101
+r3: 0
+pc: 3 
+END
+##########################
+# Self written test 15: Store Byte
+LOADMEM
+zero r0 # 0
+lb r1 r0 8 # load number 7
+lb r2 r0 9 # load number -6
+add r1 r1 r2 # r1 = 7 + (-6) = 1
+sb r2 r1 1 # store r2 at position 1+1 (value r2 is -6)
+lb r3 r0 2 # load the just stored value
+DATAMEM
+0 # 7
+7 # 8
+-6 # 9
+CHECKMEM
+r0: 0
+r1: 1
+r2: -6
+r3: -6
+pc: 6 
+END
+##########################
