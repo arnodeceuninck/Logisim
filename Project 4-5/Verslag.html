@@ -28,7 +28,9 @@
 <h2>Inhoud van de oplossing</h2>
 <p>De oplossing bestaat uit de volgende bestanden (geef alle bestanden op):</p>
 <ul>
-<li><a href="Project 4.circ">Project 1.circ</a>: Memory</li>
+<li><a href="Project 4.circ">Project 4.circ</a>: Memory</li>
+<li><a href="SD_Group50.circ">Project 5</a>: Datapath </li>
+    <li><a href="Test.py"> Testen</a> </li>
 </ul>
 
 <h2>Verslag</h2>
@@ -40,7 +42,7 @@ om structuur te brengen. Zorg ervoor dat alle onderdelen van de opgave klaar en
 
 duidelijk besproken worden. Verduidelijk hoe je tot de oplossing bent gekomen.</p>
 
-<h3>Project 1</h3>
+<h3>Project 4</h3>
 <h4>Exercise 1: 8-bit Registry</h4>
 We zijn begonnen met het maken van een D-Flip-Flop tijdens de les, 
 maar deze hebben we niet afgewerkt (en verwijderd) omdat we blijkbaar 
@@ -73,4 +75,38 @@ laten starten.
 
 <h4>Exercise 4: Register File</h4>
 Voor deze oefening hebben we de slides gevolgd van tijdens de theorielessen.
-WIP
+we hebben de input aan een demultiplexer aangesloten.
+deze demultiplexer zal door de 4-bit selector rd, de juiste van de 16 8-bit registers aanduiden waar de input moet worden opgeslagen.<br>
+het systeem heeft een write bit en een reset bit en een clock bit die met elke register verbonden zijn.
+de output van elk van deze registers is verbonden met 2 multiplexers.
+Deze multiplexers hebben als selector rs en rt.<br>
+rs en rt bepalen welk register er wordt getoond in hun output.<br>
+
+<h4>Exercise 5: 8-bit Stack</h4>
+We hebben in het midden van ons circuit een 8-bit registry staan.
+standaard staat dit registry op 0.<br>
+De input van dit registry is verbonden met de output van hetzelfde registry met op dit pad
+een substract die verbonden is met pop.<br>
+( dus als pop uit is dan doet die - 0 (dus veranderd het niets), als pop aan staat doet hij -1)<br>
+en daaracher een add(deze is verbonden met push dus als push uit is doet die + 0, als push aan staat telt die er 1 bij op).
+zo wordt dus de juiste positie in het ram geheugen weer gegeven.<br>
+aangezien het adres altijd moet wijzen naar de volgende locatie boven de stack zit er tussen de registry en de adress input van de ram nog een substract.
+deze substract staat verbonden met een multiplexer die alleen -1 doet wanneer push op 0 staat.<br>
+dit is belangrijk omdat wanneer we pop moeten gebruiken we het bovenste element moeten weghalen en niet het element boven de top en wanneer we moeten pushen we wel het element boven de top nodig hebben.
+in de registry staat ook altijd de positie van de opslag boven de top opgeslagen.<br><br>
+
+
+<h3>Project 5</h3>
+
+<h4>Datapath</h4>
+
+<a href="datapath.jpg">Datapath </a><br>
+
+We beginnen met de 16 bit code die we hebben gekregen op te splitsen in 4 delen: opcode, rd, rs, rt.<br>
+Bij de opcode gaan we eerst checken of het gelijk is aan 0001, 1010 of 1011. Als de opcode gelijk is<br>
+aan  0001 dan gaat deze aan de ALU rt doorgeven. Als de opcode 1010 is dan dan gaat deze data halen<br>
+uit het RAM geheugen en dit opslaan in de register file op adres rt + rs en wordt de<br>
+conectie tussen de alu en register file verbroken door een multiplexer zodat de ALU op dit moment<br>
+niets schrijft naad het register. Als de opcode 1011 is dan wordt juist het omgekeerde gedaan en wordt<br>
+de data uit rt gegeven aan het RAM geheugen. Het adres waar in het RAM geheugen dit wordt opgeslagen<br>
+wordt beplaad door de optelling van rt en rs.<br>
