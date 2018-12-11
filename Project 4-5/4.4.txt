@@ -1,6 +1,0 @@
-we hebben de input aan een demultiplexer aangesloten. 
-deze demultiplexer zal door de 4-bit selector rd, de juiste van de 16 8-bit registers aanduiden waar de input moet worden opgeslagen.
-het systeem heeft een write bit en een reset bit en een clock bit die met elke register verbonden zijn.
-de output van elk van deze registers is verbonden met 2 multiplexers.
-Deze multiplexers hebben als selector rs en rt.
-rs en rt bepalen welk register er wordt getoond in hun output.
