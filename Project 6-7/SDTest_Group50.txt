@@ -277,3 +277,20 @@ r3: -6
 pc: 6 
 END
 ##########################
+LOADMEM
+#Gevraagd: beq rs rt imm
+# rs is een registerpositie, rt is een registerpositie
+# beq rs rt imm # hierbij wordt rs in rd gezet en rt in rs
+# ldi 
+#beq rd rs imm   
+#  
+ldi 3 0
+ldi 0 2
+ldi 1 2
+beq 0 1 5 # skip instructie 4   
+ldi 3 4   
+ldi 0 0  
+CHECKMEM
+r3: 0
+END
+
