@@ -1,0 +1,11 @@
+LOADMEM
+ldi r1 1 # r1 = 1
+jal 4 # jump to LOAD
+add r2 r1 r1 # r1 = r1 + r1
+j 6 # END=6 end te program
+ldi r1 2 # LOAD (4): r1 = 2 
+jr r15 0 # Leave the jal function
+CHECKMEM
+r1: 2
+r2: 4 # in geval dat r1=2, is de jal niet uitgevoerd
+END

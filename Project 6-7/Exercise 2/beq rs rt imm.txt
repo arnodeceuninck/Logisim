@@ -1,0 +1,17 @@
+LOADMEM
+# Gevraagd: beq r1 r2 imm met imm [-128, 128[
+# Geimplementeerd: beq r1 r2 imm met imm [-16, 16[
+ldi r1 4 # De eerste waarde die je wil controleren
+ldi r2 4 # De tweede waarde die je wil controloeren
+ldi r14 8 # Het laatste getal is het getal waarnaar je wil jumpen
+beq r1 r2 1 # sla de volgende stap over als ze gelijk zijn
+beq r1 r1 1 # dit is sowieso waar, de volgende stap wordt dus overgeslaan
+jr r14 0 # door bovenstaande regels kom je hier enkel als ze gelijk zijn
+# Vanaf hier gaat het programma verder, 
+# als de gelijkheid klopte, ben je naar r14 gesprongen
+# anders kom je op deze lijntjes uit
+CHECKMEM
+r1: 4
+r2: 4
+r14: 8
+END

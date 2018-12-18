@@ -1,0 +1,18 @@
+LOADMEM
+# Gevraagd: bgte r1 r2 imm
+# Geimplementeerd: beq r1 r2 imm
+#		   blt r1 r2 imm
+#		   gt r3 r1 r2
+#		   eq r3 r1 r2
+#		   lt r3 r1 r2
+# Beredenering: a >= b <=> b <= a <=> b<a of b=a
+ldi r1 4 # De eerste waarde die je wil controleren
+ldi r2 4 # De tweede waarde die je wil controloeren
+beq r1 r2 8 # het laatste getal is de imm waar je naartoe wil springen
+blt r2 r1 8 # Merk op: de variabelen zijn van plaats veranderd, 
+#		       het laatste getal is de imm waar je naartoe wil springen
+# Deze code wordt niet meer bereikt indien a >= b
+CHECKMEM
+r1: 4
+r2: 4
+END

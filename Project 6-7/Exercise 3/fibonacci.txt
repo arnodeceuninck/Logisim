@@ -1,0 +1,33 @@
+LOADMEM
+# Gevraagd: Fibonacci numbers
+zero r1
+
+# starten met eerste twee getallen (1 en 1) op te slaan
+ldi r2 1 # r2 is fibonaccigetal n-2
+ldi r1 0 # 0'de positie in datageheugen
+sb r2 r1 0 # eerste(r1) fibonaccigetal is 1(r2)
+
+ldi r3 1 # r3 is fibonaccigetal n-1
+ldi r1 1 # 1'e positie in datageheugen
+sb r3 r1 0 # plaats r3(2e fibo.get. op juiste plaats in datageheugen(2e plaats, index 1)
+
+ldi r1 0 # 0'de positie in datageheugen van n-2
+
+# Bereken volgende fibo get(instr. 8):
+lb r2 r1 0 # laad fibo get n-2
+
+addi r3 r1 1 # Bereken de positie van fibo n-1
+lb r3 r3 0 # laad fibo get n-1
+
+add r4 r2 r3 # r4 is het huidige fibo getal, aka fibo(n-2)+fibo(n-1)
+addi r3 r1 2 # bereken de positie voor het huidige fibo getal
+sb r4 r3 0 # plaats op de eerstvolgende vrije positie
+
+addi r1 r1 1 # volgende vrije plaats in datamem is een positie verder
+j 8 # Ga naar de berekening voor het volgende fibo get
+CHECKMEM
+r4: 2
+r1: 1
+END
+
+# a) Halt(overflow) springt aan bij 'add r4 r2 r3' (4423) op het moment dat de ALU 89+55 wil doen
