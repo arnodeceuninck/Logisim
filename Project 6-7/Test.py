@@ -372,7 +372,7 @@ def Datapathparser(reportfile, debugtrace, width, nr_of_tests, fulldatapath=True
                 oracle = checks[reg]
                 value = items[reg]
                 regname = "pc"
-                if reg > 1: regname = "r%d" % (reg-1)
+                if reg >= 1: regname = "r%d" % (reg-1)
                 if 'E' in value or 'x' in value:
                     errors += 1
                     print("Error: %s has value %s, at line %d: %s" % (regname, value, curtrace["linenr"], curtrace["line"]))
@@ -782,18 +782,23 @@ DP_OPERATIONS = [
 # extra full data path operations
 # (name, parse_pattern, help_string, compile_function)
 FULL_DP_OPERATIONS = [
-('bne'  , pattern((('op', 'bne'),  ('rs', register()), ('rt', register()), ('imm', integerpattern())), can_have_label=True),        "bne rs rt imm   -->  rs!=rt ? pc := pc+1+imm",     lambda m, params : '1110'+str(reg2bin(m.group('rs'),4))+str(reg2bin(m.group('rt'),4))+str(int2bin(m.group('imm'),4)) ),
-('bne'  , pattern((('op', 'bne'),  ('rs', register()), ('rt', register()), ('to', labelpattern())), can_have_label=True),           "bne rs rt imm   -->  rs!=rt ? pc := pc+1+imm",     lambda m, params : '1110'+str(reg2bin(m.group('rs'),4))+str(reg2bin(m.group('rt'),4))+str(label2bin(m.group('to'),4,params[1],params[0]-1)) ),
-('ori'  , pattern((('op', 'ori'),  ('rs', register()), ('uimm', binarypattern(6))), can_have_label=True),                           "ori rs uimm     -->  rs := rs|uimm",               lambda m, params : '1111'+str(reg2bin(m.group('rs'),4))+m.group('uimm')+'00' ),
-('ori'  , pattern((('op', 'ori'),  ('rs', register()), ('uimm', uintegerpattern())), can_have_label=True),                          "ori rs uimm     -->  rs := rs|uimm",               lambda m, params : '1111'+str(reg2bin(m.group('rs'),4))+str(uint2bin(m.group('uimm'),6))+'00' ),
-('lui'  , pattern((('op', 'lui'),  ('rs', register()), ('uimm', binarypattern(6))), can_have_label=True),                           "lui rs uimm     -->  rs := uimm<<8",               lambda m, params : '1111'+str(reg2bin(m.group('rs'),4))+m.group('uimm')+'01' ),
-('lui'  , pattern((('op', 'lui'),  ('rs', register()), ('uimm', uintegerpattern())), can_have_label=True),                          "lui rs uimm     -->  rs := uimm<<8",               lambda m, params : '1111'+str(reg2bin(m.group('rs'),4))+str(uint2bin(m.group('uimm'),6))+'01' ),
-('jal'  , pattern((('op', 'jal'),  ('addr', binarypattern(10))), can_have_label=True),                                              "jal addr        -->  r15 := pc+1 ; pc := addr",    lambda m, params : '1111'+m.group('addr')+'10' ),
-('jal'  , pattern((('op', 'jal'),  ('addr', uintegerpattern())), can_have_label=True),                                              "jal addr        -->  r15 := pc+1 ; pc := addr",    lambda m, params : '1111'+str(int2bin(m.group('addr'),10))+'11' ),
-('jal'  , pattern((('op', 'jal'),  ('to', labelpattern())), can_have_label=True),                                                   "jal addr        -->  r15 := pc+1 ; pc := addr",    lambda m, params : '1111'+str(label2bin(m.group('to'),10,params[1]))+'11' ),
-('jr'   , pattern((('op', 'jr'),   ('rs', register()), ('imm', binarypattern(6))), can_have_label=True),                            "jr rs imm       -->  pc := rs+imm",                lambda m, params : '1111'+str(reg2bin(m.group('rs'),4))+m.group('imm')+'10' ),
-('jr'   , pattern((('op', 'jr'),   ('rs', register()), ('imm', integerpattern())), can_have_label=True),                            "jr rs imm       -->  pc := rs+imm",                lambda m, params : '1111'+str(reg2bin(m.group('rs'),4))+str(int2bin(m.group('imm'),6))+'10' ),
-('jr'   , pattern((('op', 'jr'),   ('rs', register()), ('to', labelpattern())), can_have_label=True),                               "jr rs imm       -->  pc := rs+imm",                lambda m, params : '1111'+str(reg2bin(m.group('rs'),4))+str(label2bin(m.group('to'),6,params[1]))+'10' )
+('ldi'  , pattern((('op', 'ldi'),  ('rd', register()), ('imm', binarypattern(8))), can_have_label=True),                            "ldi rs imm     -->  rd := imm",                    lambda m, params : '1100'+str(reg2bin(m.group('rd'),4))+m.group('imm')),
+('ldi'  , pattern((('op', 'ldi'),  ('rd', register()), ('imm', uintegerpattern())), can_have_label=True),                           "ldi rs imm     -->  rd := imm",                    lambda m, params : '1100'+str(reg2bin(m.group('rd'),4))+str(uint2bin(m.group('imm'),8))),
+('addi' , pattern((('op', 'addi'), ('rd', register()), ('rs', register()), ('imm', binarypattern(4))), can_have_label=True),        "addi rd rs imm -->  rd := rs + imm",               lambda m, params : '1101'+str(reg2bin(m.group('rd'),4))+str(reg2bin(m.group('rs'),4))+m.group('imm')),
+('addi' , pattern((('op', 'addi'), ('rd', register()), ('rs', register()), ('imm', uintegerpattern())), can_have_label=True),       "addi rd rs imm -->  rd := rs + imm",               lambda m, params : '1101'+str(reg2bin(m.group('rd'),4))+str(reg2bin(m.group('rs'),4))+str(uint2bin(m.group('imm'),4))),
+('beq'  , pattern((('op', 'beq'),  ('rd', register()), ('rs', register()), ('imm', integerpattern())), can_have_label=True),        "beq rd rs imm   -->  rd==rs ? pc := pc+1+imm",     lambda m, params : '1110'+str(reg2bin(m.group('rd'),4))+str(reg2bin(m.group('rs'),4))+str(int2bin(m.group('imm'),4)) ),
+('beq'  , pattern((('op', 'beq'),  ('rd', register()), ('rs', register()), ('to', labelpattern())), can_have_label=True),           "beq rd rs imm   -->  rd==rs ? pc := pc+1+imm",     lambda m, params : '1110'+str(reg2bin(m.group('rd'),4))+str(reg2bin(m.group('rs'),4))+str(label2bin(m.group('to'),4,params[1],params[0]-1)) ),
+('blt'  , pattern((('op', 'blt'),  ('rd', register()), ('rs', register()), ('imm', integerpattern())), can_have_label=True),        "blt rd rs imm   -->  rd<rs ? pc := pc+1+imm",      lambda m, params : '1111'+str(reg2bin(m.group('rd'),4))+str(reg2bin(m.group('rs'),4))+str(int2bin(m.group('imm'),4)) ),
+('blt'  , pattern((('op', 'blt'),  ('rd', register()), ('rs', register()), ('to', labelpattern())), can_have_label=True),           "blt rd rs imm   -->  rd<rs ? pc := pc+1+imm",      lambda m, params : '1111'+str(reg2bin(m.group('rd'),4))+str(reg2bin(m.group('rs'),4))+str(label2bin(m.group('to'),4,params[1],params[0]-1)) ),
+('jr'   , pattern((('op', 'jr'),   ('rd', register()), ('imm', binarypattern(4))), can_have_label=True),                            "jr rd imm       -->  pc := rd+imm",                lambda m, params : '0001'+str(reg2bin(m.group('rd'),4))+m.group('imm')+'0010' ),
+('jr'   , pattern((('op', 'jr'),   ('rd', register()), ('imm', integerpattern())), can_have_label=True),                            "jr rd imm       -->  pc := rd+imm",                lambda m, params : '0001'+str(reg2bin(m.group('rd'),4))+str(int2bin(m.group('imm'),4))+'0010' ),
+('jr'   , pattern((('op', 'jr'),   ('rd', register()), ('to', labelpattern())), can_have_label=True),                               "jr rd imm       -->  pc := rd+imm",                lambda m, params : '0001'+str(reg2bin(m.group('rd'),4))+str(label2bin(m.group('to'),4,params[1]))+'0010' ),
+('j'    , pattern((('op', 'j'),    ('addr', binarypattern(8))), can_have_label=True),                                               "j addr          -->  pc := addr",                  lambda m, params : '0001'+m.group('addr')+'0011' ),
+('j'    , pattern((('op', 'j'),    ('addr', uintegerpattern())), can_have_label=True),                                              "j addr          -->  pc := addr",                  lambda m, params : '0001'+str(int2bin(m.group('addr'),8))+'0011' ),
+('j'    , pattern((('op', 'j'),    ('to', labelpattern())), can_have_label=True),                                                   "j addr          -->  pc := addr",                  lambda m, params : '0001'+str(label2bin(m.group('to'),8,params[1]))+'0011' ),
+('jal'  , pattern((('op', 'jal'),  ('addr', binarypattern(8))), can_have_label=True),                                               "jal addr        -->  r15 := pc+1 ; pc := addr",    lambda m, params : '0001'+m.group('addr')+'0100' ),
+('jal'  , pattern((('op', 'jal'),  ('addr', uintegerpattern())), can_have_label=True),                                              "jal addr        -->  r15 := pc+1 ; pc := addr",    lambda m, params : '0001'+str(int2bin(m.group('addr'),8))+'0100' ),
+('jal'  , pattern((('op', 'jal'),  ('to', labelpattern())), can_have_label=True),                                                   "jal addr        -->  r15 := pc+1 ; pc := addr",    lambda m, params : '0001'+str(label2bin(m.group('to'),8,params[1]))+'0100' ),
 ]
 
 """
