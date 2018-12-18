@@ -1,0 +1,38 @@
+LOADMEM
+# Gevraagd: Selection Sort
+# De Array begint bij datamem[0] en stopt op het moment dat er een nul op datamem[i] staat
+# Opgelet! De data wordt signed gesorteerd, waardoor het misschien niet altijd gesorteerd lijkt als je naar de 16-bit waarden in je datageheugen kijkt
+zero r0 # $zero
+zero r1 # r1 = firstunsorted, begint bij datamem[0] 
+
+# FINDSMALLEST (2)
+# zoek het kleinste getal,
+# De huidige index wordt opgeslagen in r2
+cp r2 r1 # je begint bij de eerste die niet gesorteerd is
+lb r3 r2 0 # r3 is het huidige laagste getal
+cp r4 r1 # r4 bevat de index van het laagste non_sorted number
+
+# VOLGENDE_VERGELIJKING: (5)
+addi r2 r2 1 # de positie van het te vergelijken getal stijgt met 1
+
+lb r5 r2 0 # r5 is het huidige getal dat we gaan vergelijken
+beq r5 r0 5 # Als het getal nul is, zijn we aan het einde van de array, over naar swap
+blt r5 r3 1 # sla volgende instr over als het huidige getal < het kleinste getal tot nu toe
+j 5 # VOLGENDE_VERGELIJKING
+cp r3 r5 # overschrijf de vorige laagste waarde
+cp r4 r2 # overschrijf de index van de vorige laagste waarde
+j 5 # VOLGENDE_VERGELIJKING
+
+# SWAP
+lb r6 r1 0 # Onthoud het firstunsorted number
+sb r3 r1 0 # Plaats de laagst gevonden waarde vanvoor in je niet-gesorteerde lijst
+sb r6 r4 0 # Zet het oude ongesorteerde getal op de plaats van de kleinste waarde
+# De swap is gebeurd
+addi r1 r1 1 # De eerste niet gesorteerde ligt nu een plaats verder
+lb r3 r1 0 # laad de nieuwe firstunsorted
+beq r3 r0 1 # r3==0? -> einde array, alles gesorteerd -> skip volgende instructie
+j 2 # FINDSMALLEST
+# End of Program, array sorted
+END
+
+

@@ -1,0 +1,15 @@
+LOADMEM
+zero r1
+ldi r3 0 
+ldi r1 3 
+ldi r2 2 
+blt r2 r1 1 # skip instructie 4    
+ldi r3 4
+ldi r4 4
+CHECKMEM
+r2: 2
+r1: 3
+r3: 0
+r4: 4
+pc: 7
+END

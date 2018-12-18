@@ -1,0 +1,8 @@
+LOADMEM
+zero r1 # Gaf anders een vaag probleem xp
+ldi r3 2 
+addi r3 r3 3   
+CHECKMEM
+r3: 5
+pc: 3
+END
