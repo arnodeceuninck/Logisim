@@ -1,0 +1,65 @@
+
+<!-- saved from url=(0094)http://msdl.cs.mcgill.ca/people/hv/teaching/ComputerSystemsArchitecture/materials/verslag.html -->
+<html><link type="text/css" id="dark-mode" rel="stylesheet" href="http://msdl.cs.mcgill.ca/people/hv/teaching/ComputerSystemsArchitecture/materials/verslag.html"><style type="text/css" id="dark-mode-custom-style"></style><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
+<title>Verslag</title>
+<!-- Het "u" element (underline) is geherdefinieerd voor overline -->
+<style type="text/css">u {text-decoration: overline;}</style>
+
+</head>
+
+<body>
+
+<h1>Verslag</h1>
+<p><b>Titel:</b> <i>Project 4-5</i></p>
+<p>Dit verslag werd opgesteld door:<br>
+</p><ul>
+<li><b>Naam:</b> <i>Arno Deceuninck</i><br>
+<b>Studentennummer:</b> <i>20181217</i><br>
+<b>Email adres:</b> <i>arno.deceuninck@student.uantwerpen.be</i>
+</li>
+<li><b>Naam:</b> <i>Philippe Voet</i><br>
+<b>Studentennummer:</b> <i>20183222</i><br>
+<b>Email adres:</b> <i>philippe.voet@student.uantwerpen.be</i>
+</li>
+</ul>
+<b>Aantal man-uren besteed:</b> <i>OVER 9000 uur</i><br>
+<b>Moeilijkheidsgraad:</b> <i>8</i> /10 (1 is heel makkelijk, 10 is heel moeilijk)<p></p>
+
+<h2>Inhoud van de oplossing</h2>
+<p>De oplossing bestaat uit de volgende bestanden (geef alle bestanden op):</p>
+<ul>
+<li><a href="FD_Group50.circ">Project 5</a>: Full Datapath </li>
+    <li><a href="Test.py"> Testen</a> </li>
+</ul>
+
+<h2>Verslag</h2>
+<p>Geef een gestructureerd verslag van de oplossing. Gebruik figuren (bijvoorbeeld 
+
+screenshots) waar je denkt dat ze een bijdrage leveren. Gebruik eventueel subtitels 
+
+om structuur te brengen. Zorg ervoor dat alle onderdelen van de opgave klaar en 
+
+duidelijk besproken worden. Verduidelijk hoe je tot de oplossing bent gekomen.</p>
+
+<h3>Project 6</h3>
+
+<h4>Control Unit</h4>
+    de Control Unit geeft aan het datapad weer welke operatie er moet gedaan worden.<br>
+    Het zegt of de operatie moet gedaan worden door de ALU of de deze een immidiate is en welke immediate.<br>
+    we hebben hier voor ook een equal gemaakt aangezien u op onze evaluatie zei dat we daar<br>
+    minpunten voor hebben gekregen omdat dit te veel vertraging heeft.<br>
+
+<h4>Immidiate Unit</h4>
+    de Immidiate Unit neemt de output van de ontrol Unit waardoor die weet of hij de input singed<br>
+    moet maken of unsigned moet laten en geeft dit getal als output.<br>
+ 
+<h4>Signed Add</h4>
+    Hier wordt een gewone add berekent maar dan tussen 2 signed getallen. Hierbij wordt eerst gechecked of het eerste getal hetzelfde is
+
+<h4>8-bit Program counter</h4>
+    we hebben een 8-bit Program counter gemaakt voor ons Datapad, deze keer met branch geimplementeerd.<br> 
+    in deze PC wordt het huidige adres opgeslagen. Als input krijgt het welke branch en telt de program<br> 
+    counter op naargelang welke het is en geeft dan het huidige adres terug.<br>
+
+<h3>Project 7</h3>
+    we hebben testjes geschreven om ons datapad te testen.
